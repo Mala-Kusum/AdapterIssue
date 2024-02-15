@@ -1,34 +1,41 @@
 package com.example.myapplication;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    RecyclerView r;
-    EqPMUWiseAdapter a;
-    ArrayList<PmuNo> l;
+
+    private RecyclerView recyclerView;
+    private PmuNoAdapter pmuAdapter;
+    private List<PmuNo> pmuList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        r= findViewById(R.id.r);
-        l=new ArrayList<>();
-        a=new EqPMUWiseAdapter(this,l);
-        r.setLayoutManager(new LinearLayoutManager(this));
-        r.setAdapter(a);
-        PmuNo m1 = new PmuNo("PMU-Bongaigaon",1);
-        l.add(m1);
-        a.notifyDataSetChanged();
-        PmuNo m2 = new PmuNo("PMU-Dhubri",2);
-        l.add(m2);
-        a.notifyDataSetChanged();
-        PmuNo m3 = new PmuNo("PMU-Diphu",1);
-        l.add(m3);
-        a.notifyDataSetChanged();
+
+        recyclerView = findViewById(R.id.recyclerView);
+        pmuList = new ArrayList<>();
+        pmuAdapter = new PmuNoAdapter(pmuList);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(pmuAdapter);
+
+        // Add sample data
+        PmuNo pmu1 = new PmuNo("PMU-Bongaigaon", 1);
+        pmuList.add(pmu1);
+        PmuNo pmu2 = new PmuNo("PMU-Dhubri", 2);
+        pmuList.add(pmu2);
+        PmuNo pmu3 = new PmuNo("PMU-Diphu", 1);
+        pmuList.add(pmu3);
+
+        // Notify the adapter about the data change
+        pmuAdapter.notifyDataSetChanged();
     }
 }
